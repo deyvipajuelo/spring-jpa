@@ -1,7 +1,8 @@
-package com.springjpa.springjpa.model;
+package com.springjpa.springjpa.model.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -12,6 +13,7 @@ import java.sql.Timestamp;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class Client {
     @Id
     @SequenceGenerator(
@@ -25,7 +27,7 @@ public class Client {
     )
     private Long id;
     private String name;
-    private String lastName;
+    private String last_name;
     @Column(nullable = false)
     private String email;
     private Boolean active;
