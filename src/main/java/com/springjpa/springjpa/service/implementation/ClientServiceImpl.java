@@ -129,10 +129,10 @@ public class ClientServiceImpl implements ClientService {
         }
     }
 
-    public ResponseEntity<?> updateClient(ClientDto clientDto) {
+    public ResponseEntity<?> updateClient(ClientDto clientDto, Long id) {
         try {
 
-            if ( ! this.existsById(clientDto.getIdClient())) {
+            if ( ! this.existsById(id)) {
                 return new ResponseEntity<>(
                         MessageResponse.builder()
                                 .message("El cliente no existe!!")
@@ -142,7 +142,7 @@ public class ClientServiceImpl implements ClientService {
             }
 
             Client client = Client.builder()
-                    .id(clientDto.getIdClient())
+                    .id(id)
                     .name(clientDto.getNameClient())
                     .last_name(clientDto.getLastNameClient())
                     .email(clientDto.getEmailClient())
@@ -151,6 +151,7 @@ public class ClientServiceImpl implements ClientService {
 
             this.save(client);
 
+            clientDto.setIdClient(id);
             return new ResponseEntity<>(
                     MessageResponse.builder()
                             .message("Cliente actualizado correctamente!")

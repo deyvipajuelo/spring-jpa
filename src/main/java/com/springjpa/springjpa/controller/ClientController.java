@@ -40,8 +40,8 @@ public class ClientController {
         return clientService.saveClient(clientDto);
     }
 
-    @PutMapping("client")
-    public ResponseEntity<?> update(@RequestBody ClientDto client) {
-        return clientService.updateClient(client);
+    @PutMapping("client/{id}")
+    public ResponseEntity<?> update(@RequestBody ClientDto client, @PathVariable Long id) {
+        return clientService.updateClient(client, id);
     }
 }
