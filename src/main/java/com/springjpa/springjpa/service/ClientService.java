@@ -11,9 +11,9 @@ public interface ClientService {
 
     Client findById(Long id);
 
-    ResponseEntity save(ClientDto client);
+    Client save(Client client);
 
     void delete(Client client);
 
-    ResponseEntity deleteById(Long id);
+    boolean existsById(Long id);
 }

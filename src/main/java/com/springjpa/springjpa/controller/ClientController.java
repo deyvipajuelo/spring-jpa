@@ -21,36 +21,27 @@ public class ClientController {
     private ClientServiceImpl clientService;
 
     @GetMapping("clients")
-    public List<Client> clients() {
-        return clientService.listAll();
+    public ResponseEntity<?> clients() {
+        return clientService.findAllClients();
     }
 
     @GetMapping("client/{id}")
     public ResponseEntity<?> client(@PathVariable Long id) {
-        Map<String, String> errors = new HashMap<>();
-        try {
-            Client client = clientService.findById(id);
-            if (client == null) throw new Exception("El cliente no existe");
-            return new ResponseEntity<>(client, HttpStatus.OK);
-        } catch (Exception ext) {
-            errors.put("Mensaje", ext.getMessage());
-            errors.put("Client", null);
-            return new ResponseEntity<>(errors, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        return clientService.findClientById(id);
     }
 
     @DeleteMapping("delete/{id}")
     public ResponseEntity<?> deleteById(@PathVariable Long id) {
-        return clientService.deleteById(id);
+        return clientService.deleteClientById(id);
     }
 
     @PostMapping("client")
     public ResponseEntity<?> create(@RequestBody ClientDto clientDto) {
-        return clientService.save(clientDto);
+        return clientService.saveClient(clientDto);
     }
 
     @PutMapping("client")
     public ResponseEntity<?> update(@RequestBody ClientDto client) {
-        return clientService.save(client);
+        return clientService.updateClient(client);
     }
 }
