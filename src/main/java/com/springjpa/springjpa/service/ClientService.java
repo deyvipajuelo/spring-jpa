@@ -5,6 +5,7 @@ import com.springjpa.springjpa.model.entity.Client;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ClientService {
     List<Client> listAll();
@@ -16,4 +17,6 @@ public interface ClientService {
     void delete(Client client);
 
     boolean existsById(Long id);
+
+    ResponseEntity<?> getClientByEmail(String email);
 }

@@ -5,6 +5,10 @@ import com.springjpa.springjpa.model.dto.ClientDto;
 import com.springjpa.springjpa.model.entity.Client;
 import com.springjpa.springjpa.model.payload.MessageResponse;
 import com.springjpa.springjpa.service.ClientService;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
+import jakarta.persistence.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -198,4 +203,34 @@ public class ClientServiceImpl implements ClientService {
             );
         }
     }
+
+    public ResponseEntity<?> getClientByEmail(String email) {
+
+        Client client = clientDao.getClientByEmail(email);
+
+        if (client == null) {
+            return new ResponseEntity<>(
+                    MessageResponse.builder()
+                            .message("El cliente no existe!")
+                            .body(null)
+                            .build()
+                    , HttpStatus.NOT_FOUND);
+        }
+
+        ClientDto clientDto = ClientDto.builder()
+                .idClient(client.getId())
+                .nameClient(client.getName())
+                .lastNameClient(client.getLast_name())
+                .emailClient(client.getEmail())
+                .active(client.getActive())
+                .build();
+
+        return new ResponseEntity<>(
+                MessageResponse.builder()
+                        .message("Consulta exitosa!")
+                        .body(clientDto)
+                        .build()
+                , HttpStatus.OK);
+    }
+
 }
