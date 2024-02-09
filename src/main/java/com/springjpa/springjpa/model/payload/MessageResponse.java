@@ -10,6 +10,7 @@ import lombok.ToString;
 public class MessageResponse {
 
     private String message;
+    private Integer status;
     private Object body;
 
 }

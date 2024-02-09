@@ -120,6 +120,7 @@ public class ClientServiceImpl implements ClientService {
             return new ResponseEntity<>(
                     MessageResponse.builder()
                             .message("Cliente guardado correctamente!")
+                            .status(1)
                             .body(clientDto)
                             .build(), HttpStatus.CREATED
             );
@@ -128,6 +129,7 @@ public class ClientServiceImpl implements ClientService {
             return new ResponseEntity<>(
                     MessageResponse.builder()
                             .message(ex.getMessage())
+                            .status(0)
                             .body(null)
                             .build(), HttpStatus.INTERNAL_SERVER_ERROR
             );
